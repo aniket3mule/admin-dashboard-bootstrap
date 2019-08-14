@@ -1,2 +1,5 @@
 export const REGISTER = 'REGISTER'
 export const LOGIN  = 'LOGIN'
+export const FAILURE = 'FAILURE'
+export const FETCH_USERSTATICS = 'FETCH_USERSTATICS'
+export const FETCH_ADMINUSERLIST = "FETCH_ADMINUSERLIST"

@@ -9,6 +9,15 @@ padding: 15px
     border-radius: 8px;
     box-shadow: 0 1px 2px rgb(143, 143, 143);
 }
+.statics-box{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px lightgrey;
+    height: 60px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+}
 
 
 
@@ -20,7 +29,7 @@ padding: 15px
 
 
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 760px) {
     .div-container{
         margin-left: 0%;
         margin-right: 0%;

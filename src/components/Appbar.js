@@ -1,7 +1,8 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
-export default class Demo extends React.Component {
+export default class Appbar extends React.Component {
 
   render() {
     return (
@@ -11,14 +12,11 @@ export default class Demo extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto" variant="pills" defaultActiveKey="#features">
-              <Nav.Link href="#features">Purchased</Nav.Link>
-              <Nav.Link href="#pricing">Note Service</Nav.Link>
+              
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">More deets</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link>
+            <Link to='/register' href="#purchased">Purchased</Link>
+              <Link to='/register'>Note Service</Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
