@@ -1,4 +1,11 @@
-import { REGISTER, LOGIN, FAILURE, FETCH_USERSTATICS, FETCH_ADMINUSERLIST } from './types'
+import { REGISTER, 
+    LOGIN, 
+    FAILURE, 
+    FETCH_USERSTATICS, 
+    FETCH_ADMINUSERLIST, 
+    FETCH_QUESTIONANSWERLIST, 
+    FETCH_ORDERDETAILSLIST
+} from './types'
 import AdminService from "../services/AdminService";
 
 const AdminServices = new AdminService();
@@ -31,7 +38,6 @@ export const loginForm = (loginData) => dispatch => {
             localStorage.setItem('token', res.data.id);
             window.location.href = '/admindashboard'
             // console.log("post action .then",res);
-
         })
         .catch(err => {
             dispatch({
@@ -67,6 +73,40 @@ export const getAdminUserList = () => dispatch => {
                 payload: res.data.data.data
             })
             console.log("login Action", res);
+        })
+        .catch(err => {
+            dispatch({
+                type: FAILURE,
+                payload: err
+            })
+        })
+}
+
+export const getQuestionAnswerList = () => dispatch => {
+    AdminServices.getQuestionAnswerList()
+        .then(res => {
+            dispatch({
+                type: FETCH_QUESTIONANSWERLIST,
+                payload: res.data.data
+            })
+            console.log("question list Action", res);
+        })
+        .catch(err => {
+            dispatch({
+                type: FAILURE,
+                payload: err
+            })
+        })
+}
+
+export const getOrderDetailsList = () => dispatch => {
+    AdminServices.getOrderDetailsList()
+        .then(res => {
+            dispatch({
+                type: FETCH_ORDERDETAILSLIST,
+                payload: res.data.data
+            })
+            console.log("get order list Action", res);
         })
         .catch(err => {
             dispatch({

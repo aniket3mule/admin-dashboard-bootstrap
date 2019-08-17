@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import AdminDashboardComponent from '../components/AdminDashboardComponent';
 import Appbar from '../components/Appbar';
+import QuestionAnswerComponennt from '../components/QuestionAnswerComponennt';
 
-export default class Admin extends Component {
+export default class QuestionAnswer extends Component {
     render() {
         return (
             <div>
                 <Appbar
-                props={this.props}/>
-                <AdminDashboardComponent
+                props={this.props}
                 />
+                <QuestionAnswerComponennt/>
             </div>
         )
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Appbar from './Appbar';
 import { Container, Row, Col } from 'react-bootstrap';
 import propTypes from "prop-types";
 import { connect } from "react-redux";
@@ -12,8 +11,8 @@ class AdminDashboardComponent extends Component {
         this.state = {
             currentPage: 1,
             listPerPage: 10,
-            startIndex : 0, 
-            endIndex : 5
+            startIndex: 0,
+            endIndex: 5
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -25,56 +24,75 @@ class AdminDashboardComponent extends Component {
     }
 
 
-    componentWillMount() {
-        this.props.fetchData();
-        this.props.getAdminUserList();
+    async componentDidMount() {
+        await this.props.fetchData();
+        await this.props.getAdminUserList();
     }
 
-    pageNumber = (event, item) =>{
+    pageNumber = (event) => {
         this.setState({
             currentPage: Number(event.target.id),
-            // startIndex:this.state.startIndex,
-            // endIndex: this.state.endIndex+5
-            
         })
 
-        if (item%5 === 0) {
+        // if (item%5 === 0) {
+        //     this.setState({
+        //         startIndex:this.state.startIndex+5,
+        //         endIndex: this.state.endIndex+5
+        //     })
+        // }
+    }
+
+    prevPage = () => {
+        if (this.state.currentPage <= 5) {
             this.setState({
-                startIndex:this.state.startIndex+5,
-                endIndex: this.state.endIndex+5
+                startIndex: 0,
+                endIndex: 5,
+                currentPage: this.state.currentPage - 1,
+            })
+        }
+        else {
+            this.setState({
+                startIndex: this.state.startIndex - 1,
+                endIndex: this.state.endIndex - 1,
+                currentPage: this.state.currentPage - 1,
             })
         }
     }
 
-    prevPage = () => {
+    nextPage = () => {
         this.setState({
-            startIndex :this.state.startIndex - 5,
-            endIndex :this.state.endIndex - 5
+            startIndex: this.state.startIndex + 1,
+            endIndex: this.state.endIndex + 1,
+            currentPage: this.state.currentPage + 1,
         })
     }
-    nextPage = () => {
-    this.setState({
-        startIndex : this.state.startIndex + 5,
-        endIndex : this.state.endIndex + 5,
-        // startIndex:this.state.startIndex+5,
-        // endIndex: this.state.endIndex+5
-    })
-}
     render() {
         const { currentPage, listPerPage } = this.state;
-        const {startIndex , endIndex } = this.state;
+        const { startIndex, endIndex } = this.state;
         console.log("this.props", this.props.adminUserList);
 
-        // Logic for displaying todos
-        const indexOfLastTodo = currentPage * listPerPage;
-        const indexOfFirstTodo = indexOfLastTodo - listPerPage;
-        const currentTodos = this.props.adminUserList.slice(indexOfFirstTodo, indexOfLastTodo);
+        // Logic for displaying userlist
+        const indexOfLastElement = currentPage * listPerPage;
+        const indexOfFirstElement = indexOfLastElement - listPerPage;
+        const userLists = this.props.adminUserList.slice(indexOfFirstElement, indexOfLastElement);
 
-        const renderTodos = currentTodos.map((key, index) => {
+        //rendering list of users
+        const renderUserLists = userLists.map((key, index) => {
             return (
-                <div key={index}>
-                    {key.firstName}
-                </div>
+                <tr key={index} style={{ backgroundColor: ((key.service).toString().toUpperCase() === "BASIC") ? "#fffbef" : "#f3f3f3" }}>
+                    <td>
+                        {key.firstName}
+                    </td>
+                    <td>
+                        {key.lastName}
+                    </td>
+                    <td>
+                        {key.email}
+                    </td>
+                    <td>
+                        {(key.service).toString().toUpperCase()}
+                    </td>
+                </tr>
             )
         });
 
@@ -84,27 +102,26 @@ class AdminDashboardComponent extends Component {
             pageNumbers.push(i);
         }
 
-        const renderPageNumbers  = pageNumbers.slice(startIndex, endIndex).map(item => (
-            <li
-            
-            //  className={meta.pagination.current_page === item ? 'page-item active' : 'page-item'}
-             >
-                <button className="page-link" onClick={(e) => this.pageNumber(e, item)}
-                key={item}
-                id={item}
-                >
+        //rendering page numbers
+        const renderPageNumbers = pageNumbers.slice(startIndex, endIndex).map(item => (
+            <li className={currentPage === item ? 'page-item active' : 'page-item'} key={item}>
+                <button className="page-link" style={{ width: "42px" }} onClick={(e) => this.pageNumber(e, item)}
+                    id={item}>
                     {item}
                 </button>
             </li>
         ));
 
 
+        // rendering user statistics basic or advance users
         const statics = this.props.userStatics.map(key => {
             return (
-                <Row key={key.service} style={{ textAlign: "center", display: "flex", width: "205px" }}>
-                    <Col md={{ span: 10, offset: 0 }}>
+                <Row key={key.service} style={{
+                    textAlign: "center", display: "flex", width: "205px"
+                }}>
+                    <Col md={{ span: 10, offset: 0 }} >
                         <div
-                            className="statics-box" >
+                            className="statics-box" style={{ backgroundColor: (key.service).toString().toUpperCase() === "BASIC" ? "#fffbef" : "#f3f3f3" }}>
                             <span style={{ marginTop: "4%" }}>{(key.service).toString().toUpperCase()}</span>
                             <span>{(key.count).toString().toUpperCase()}</span>
                         </div>
@@ -112,19 +129,47 @@ class AdminDashboardComponent extends Component {
                 </Row>
             )
         })
+
         return (
             <div>
-                <Appbar />
                 <Container style={{ marginTop: "12vh", display: "flex", justifyContent: "center" }}>
                     {statics}
                 </Container>
-
-                {renderTodos}
-                <ul className="pagination" id="page-numbers">
-                    <li><button onClick={this.prevPage} className="page-link">PrevPage</button></li>
-                    {renderPageNumbers}
-                    <li><button onClick={this.nextPage} className="page-link">NextPage</button></li>
-                </ul>
+                <center>
+                    <div className="table-responsive"
+                        style={{ width: "80%", padding: "2%" }}>
+                        <table className="table table-stripped table-bordered ">
+                            <thead  >
+                                <tr>
+                                    <th>{"First Name"}</th>
+                                    <th>{"Last Name"}</th>
+                                    <th>{"Email"}</th>
+                                    <th>{"Service"}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {renderUserLists}
+                                <tr>
+                                    <td colSpan="4">
+                                        <ul className="pagination" id="page-numbers" style={{ width: "35vh" }}>
+                                            <li>
+                                            <button onClick={currentPage === 1 ? null : this.prevPage}
+                                                className="page-link"
+                                            >PrevPage</button>    
+                                            </li>
+                                            {renderPageNumbers}
+                                            <li>
+                                            
+                                            <button onClick={currentPage === pageNumbers.length ? null : this.nextPage}
+                                                className="page-link"  >NextPage</button>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </center>
             </div>
         )
     }
@@ -134,7 +179,6 @@ AdminDashboardComponent.propTypes = {
     fetchData: propTypes.func.isRequired,
     getAdminUserList: propTypes.func.isRequired
 }
-
 const mapStateToProps = state => ({
     userStatics: state.posts.userStatics,
     adminUserList: state.adminData.adminUserList
