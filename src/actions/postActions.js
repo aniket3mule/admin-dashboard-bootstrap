@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { REGISTER, 
     LOGIN, 
     FAILURE, 
@@ -5,7 +6,7 @@ import { REGISTER,
     FETCH_ADMINUSERLIST, 
     FETCH_QUESTIONANSWERLIST, 
     FETCH_ORDERDETAILSLIST
-} from './types'
+} from "./types";
 import AdminService from "../services/AdminService";
 
 const AdminServices = new AdminService();
@@ -17,15 +18,15 @@ export const registerForm = (registerData) => dispatch => {
             dispatch({
                 type: REGISTER,
                 payload: res
-            })
+            });
         })
         .catch(err => {
             dispatch({
                 type: FAILURE,
                 payload: err
-            })
-        })
-}
+            });
+        });
+};
 
 export const loginForm = (loginData) => dispatch => {
     console.log("login Action");
@@ -34,18 +35,18 @@ export const loginForm = (loginData) => dispatch => {
             dispatch({
                 type: LOGIN,
                 payload: res
-            })
-            localStorage.setItem('token', res.data.id);
-            window.location.href = '/admindashboard'
+            });
+            localStorage.setItem("token", res.data.id);
+            window.location.href = "/admindashboard";
             // console.log("post action .then",res);
         })
         .catch(err => {
             dispatch({
                 type: FAILURE,
                 payload: err
-            })
-        })
-}
+            });
+        });
+};
 
 export const fetchData = () => dispatch => {
     
@@ -54,16 +55,16 @@ export const fetchData = () => dispatch => {
             dispatch({
                 type: FETCH_USERSTATICS,
                 payload: res.data.data.details
-            })
+            });
             console.log("login Action", res);
         })
         .catch(err => {
             dispatch({
                 type: FAILURE,
                 payload: err
-            })
-        })
-}
+            });
+        });
+};
 
 export const getAdminUserList = () => dispatch => {
     AdminServices.getAdminUserList()
@@ -71,16 +72,16 @@ export const getAdminUserList = () => dispatch => {
             dispatch({
                 type: FETCH_ADMINUSERLIST,
                 payload: res.data.data.data
-            })
+            });
             console.log("login Action", res);
         })
         .catch(err => {
             dispatch({
                 type: FAILURE,
                 payload: err
-            })
-        })
-}
+            });
+        });
+};
 
 export const getQuestionAnswerList = () => dispatch => {
     AdminServices.getQuestionAnswerList()
@@ -88,16 +89,16 @@ export const getQuestionAnswerList = () => dispatch => {
             dispatch({
                 type: FETCH_QUESTIONANSWERLIST,
                 payload: res.data.data
-            })
+            });
             console.log("question list Action", res);
         })
         .catch(err => {
             dispatch({
                 type: FAILURE,
                 payload: err
-            })
-        })
-}
+            });
+        });
+};
 
 export const getOrderDetailsList = () => dispatch => {
     AdminServices.getOrderDetailsList()
@@ -105,13 +106,13 @@ export const getOrderDetailsList = () => dispatch => {
             dispatch({
                 type: FETCH_ORDERDETAILSLIST,
                 payload: res.data.data
-            })
+            });
             console.log("get order list Action", res);
         })
         .catch(err => {
             dispatch({
                 type: FAILURE,
                 payload: err
-            })
-        })
-}
+            });
+        });
+};

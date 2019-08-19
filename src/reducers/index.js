@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import postReducer from './postReducer';
+import { combineReducers } from "redux";
+import postReducer from "./postReducer";
 import getAdminUserListReducer  from "./getAdminUserListReducer";
-import getQuestionAnswerListReducer from './getQuestionAnswerListReducer';
-import getOrderDetailsList from './getOrderDetailsListReducer';
+import getQuestionAnswerListReducer from "./getQuestionAnswerListReducer";
+import getOrderDetailsList from "./getOrderDetailsListReducer";
 
 export default combineReducers({
     posts: postReducer,

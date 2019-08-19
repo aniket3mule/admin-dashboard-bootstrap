@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import RegistrationComponent from '../components/RegistrationComponent';
+/* eslint-disable no-unused-vars */
+import React, { Component } from "react";
+import RegistrationComponent from "../components/RegistrationComponent";
 
 export default class Register extends Component {
     render() {
@@ -7,6 +8,6 @@ export default class Register extends Component {
             <div>
                 <RegistrationComponent/>
             </div>
-        )
+        );
     }
 }

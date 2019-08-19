@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import LoginComponent from '../components/LoginComponent';
+/* eslint-disable no-unused-vars */
+import React, { Component } from "react";
+import LoginComponent from "../components/LoginComponent";
 
 export default class Login extends Component {
     render() {
@@ -7,6 +8,6 @@ export default class Login extends Component {
             <div>
                 <LoginComponent/>
             </div>
-        )
+        );
     }
 }

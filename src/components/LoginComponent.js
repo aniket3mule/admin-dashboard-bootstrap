@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { Row, Col, Container, Button } from 'react-bootstrap';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+import React, { Component } from "react";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import { connect } from "react-redux";
@@ -9,30 +11,29 @@ class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email:'',
-            password:'',
-        }
+            email:"",
+            password:"",
+        };
+        this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleSignIn = this.handleSignIn.bind(this);
     }
 
-    handleOnChange = (e) => {
+    handleOnChange(e){
         this.setState({
             [e.target.name]:e.target.value
-        })
+        });
     }
 
-    handleSignIn = async (e) => {
+    async handleSignIn(e){
         e.preventDefault();
         var data = {
-            'email': this.state.email,
-            'password': this.state.password
-        }
-        await this.props.loginForm(data)
+            "email": this.state.email,
+            "password": this.state.password
+        };
+        await this.props.loginForm(data);
     }
     render() {
         console.log("render ",this.props.posts);
-        // if (this.props) {
-        //    this.props.redirect.push('/register')
-        // }
         return (
             <Container>
                 <div className="div-container">
@@ -98,15 +99,15 @@ class LoginComponent extends Component {
                     </Row>
                 </div>
             </Container>
-        )
+        );
     }
 }
 
 LoginComponent.propTypes = {
     loginForm:propTypes.func.isRequired
-}
+};
 
 const mapStateToProps = state =>({
     posts : state.posts.failureRes
-})
+});
 export default connect(mapStateToProps,{loginForm})(LoginComponent);
