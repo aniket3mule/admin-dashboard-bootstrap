@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://34.213.106.173/api";
+const baseURL = "http://fundoonotes.incubation.bridgelabz.com/api";
 
 class AdminService {
     adminSignUp(data) {

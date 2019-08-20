@@ -135,7 +135,7 @@ class AdminDashboardComponent extends Component {
                     </Container>
                     <center>
                         <div className="table-responsive"
-                            style={{ width: "80%", padding: "2%" }}>
+                            style={{ width: "90%", paddingTop:"2%" }}>
                             <table className="table table-stripped table-bordered ">
                                 <thead  >
                                     <tr>

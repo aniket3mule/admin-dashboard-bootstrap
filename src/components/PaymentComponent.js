@@ -140,7 +140,7 @@ class PaymentComponent extends Component {
                 <center>
     
                     <div className="table-responsive"
-                        style={{ width: "80%", padding: "2%", marginTop: "10vh" }}>
+                        style={{ width: "90%", paddingTop:"2%", marginTop:"10vh" }}>
                         <h4 >
                             <strong>{"Payment History"}</strong>
                         </h4>
