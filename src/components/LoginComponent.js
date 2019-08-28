@@ -13,6 +13,7 @@ class LoginComponent extends Component {
         this.state = {
             email:"",
             password:"",
+            button:""
         };
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
@@ -71,6 +72,7 @@ class LoginComponent extends Component {
                                 name="email"
                                 placeholder="Email"
                                 required
+                                value={this.state.email}
                                 onChange={this.handleOnChange}
                             />
                         </Col>
@@ -83,6 +85,7 @@ class LoginComponent extends Component {
                                 name="password"
                                 placeholder="Password"
                                 required
+                                value={this.state.password}
                                 onChange={this.handleOnChange}
                             />
                         </Col>
